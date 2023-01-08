@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:rowCount="2"
+    android:columnCount="2"
+    tools:context=".MainActivity">
+
+    <!--    Section cardViewTarneitShoppingCentre-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewTarneitShoppingCentre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="0"
+        android:layout_column="0"
+        android:layout_gravity="center"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="15dp"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="15dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="175dp"
+                android:layout_height="280dp"
+                android:scaleType="fitXY"
+                android:contentDescription="@string/tarneit_shopping_centre"
+                android:src="@drawable/tarneit_shoppingcenter" />
+
+            <TextView
+                android:id="@+id/title_Card_View_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/title_Card_View_1"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <RatingBar
+                android:id="@+id/ratingBarCard_View_1"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <!--    End Section cardViewTarneitShoppingCentre-->
+
+    <!--    Section cardViewBunningsWarehouse-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewBunnings_warehouse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="0"
+        android:layout_column="1"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="15dp"
+        android:layout_gravity="center"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="15dp"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:gravity="center"
+            >
+
+            <ImageView
+                android:layout_width="175dp"
+                android:layout_height="280dp"
+                android:contentDescription="@string/tarneit_bunnings_warehouse"
+                android:scaleType="fitXY"
+                android:src="@drawable/tarneit_bunnings_warehouse" />
+            <TextView
+                android:id="@+id/title_Card_View_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_Card_View_2"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@color/black"
+                />
+            <RatingBar
+                android:id="@+id/ratingBarCard_View_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                style = "?android:attr/ratingBarStyleSmall"
+                />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <!--    End Section cardViewBunningsWarehouse-->
+
+
+    <!--    Section cardViewTarneitMedicalCenter-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_Tarneit_medical_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="1"
+        android:layout_column="0"
+        android:layout_marginStart="17dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="15dp"
+        android:layout_gravity="center"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="15dp"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:gravity="center"
+            >
+
+            <ImageView
+                android:layout_width="175dp"
+                android:layout_height="280dp"
+                android:contentDescription="@string/tarneit_medical_centre"
+                android:scaleType="fitXY"
+                android:src="@drawable/tarneit_medical_center" />
+            <TextView
+                android:id="@+id/title_Card_View_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_Card_View_3"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@color/black"
+                />
+            <RatingBar
+                android:id="@+id/ratingBarCard_View_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                style = "?android:attr/ratingBarStyleSmall"
+                />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <!--    End Section cardViewTarneitMedicalCenter-->
+
+    <!--    Section cardViewTarneitVillageCinema-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_village_cinemas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="1"
+        android:layout_column="1"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="15dp"
+        android:layout_gravity="center"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="15dp"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:gravity="center"
+            >
+
+            <ImageView
+                android:layout_width="175dp"
+                android:layout_height="280dp"
+                android:contentDescription="@string/tarneit_village_cinemas"
+                android:scaleType="fitXY"
+                android:src="@drawable/tarneit_village_cinemas" />
+            <TextView
+                android:id="@+id/title_Card_View_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_Card_View_4"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@color/black"
+                />
+            <RatingBar
+                android:id="@+id/ratingBarCard_View_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                style = "?android:attr/ratingBarStyleSmall"
+                />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <!--    End Section cardViewTarneitVillageCinema-->
+
+</GridLayout>

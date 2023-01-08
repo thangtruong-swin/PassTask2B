@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">PassTask2A-Wish-you-were-here</string>
+    <string name="title_Card_View_1" translatable="false">Tarneit Shopping Centre</string>
+    <string name="title_Card_View_2" translatable="false">Bunnings Warehouse</string>
+    <string name="title_Card_View_3" translatable="false">Tarneit Medical Centre</string>
+    <string name="title_Card_View_4" translatable="false">Village Cinemas</string>
+    <string name="textViewTitleLable" translatable="false">Title: </string>
+    <string name="textViewTitle" translatable="false">textViewTitle</string>
+    <string name="textViewCityLable" translatable="false">City:</string>
+    <string name="textViewCity" translatable="false">textViewCity</string>
+    <string name="textViewDateLabel" translatable="false">Date:</string>
+    <string name="textViewDate" translatable="false">textViewDate</string>
+    <string name="textViewRating" translatable="false">Rating:</string>
+    <string name="tarneit_medical_centre" translatable="false">Tarneit Medical Centre</string>
+    <string name="tarneit_bunnings_warehouse" translatable="false">Tarneit Bunnings Warehouse</string>
+    <string name="tarneit_shopping_centre" translatable="false">Tarneit Shopping Centre</string>
+    <string name="tarneit_village_cinemas" translatable="false">Tarneit Village Cinemas</string>
+    <string name="update">Update</string>
+</resources>
