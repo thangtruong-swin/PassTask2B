@@ -15,11 +15,10 @@
         >
         <TextView
             android:id="@+id/textViewTitleLable"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:text="@string/textViewTitleLable"
-            android:textAlignment="center"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textColor="@color/black"
             android:layout_marginEnd="10dp"
             />
@@ -27,13 +26,14 @@
             android:id="@+id/TextTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/TextEditTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 <!--        <TextView-->
@@ -53,10 +53,10 @@
         >
         <TextView
             android:id="@+id/textViewCityLable"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:text="@string/textViewCityLable"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textColor="@color/black"
             android:layout_marginBottom="10dp"
             android:layout_marginEnd="10dp"
@@ -79,7 +79,7 @@
                 android:id="@+id/TextEditCity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
@@ -103,7 +103,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/textViewDateLabel"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:layout_marginEnd="10dp"
             android:textColor="@color/black"
             />
@@ -118,7 +118,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 />
         </com.google.android.material.textfield.TextInputLayout>
         <Button
@@ -126,6 +126,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/update"
+            android:layout_marginStart="10dp"
             >
 
         </Button>
@@ -154,7 +155,7 @@
             android:text="@string/textViewRating"
             android:textColor="@color/black"
             android:layout_marginTop="15dp"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
         <RatingBar
             android:id="@+id/ratingBar"
             android:layout_width="wrap_content"

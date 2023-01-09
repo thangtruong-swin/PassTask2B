@@ -5,7 +5,7 @@ import android.os.Parcelable
 
 @Parcelize
 data class Location(
-    var cardViewTitle:String,
+    var cardViewID: String,
     var title: String, var city: String,
     var date: String, var rating: Double,
     var visited: Boolean = false

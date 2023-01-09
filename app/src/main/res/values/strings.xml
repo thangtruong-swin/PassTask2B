@@ -15,5 +15,5 @@
     <string name="tarneit_bunnings_warehouse" translatable="false">Tarneit Bunnings Warehouse</string>
     <string name="tarneit_shopping_centre" translatable="false">Tarneit Shopping Centre</string>
     <string name="tarneit_village_cinemas" translatable="false">Tarneit Village Cinemas</string>
-    <string name="update">Update</string>
+    <string name="update">Change Date</string>
 </resources>

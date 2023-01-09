@@ -28,6 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal"
             android:gravity="center"
+
             android:orientation="vertical">
 
             <ImageView
@@ -43,6 +44,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/title_Card_View_1"
+                android:contentDescription="@string/tarneit_shopping_centre"
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 android:textStyle="bold" />

@@ -15,15 +15,28 @@ import androidx.lifecycle.ViewModel
 import java.util.*
 class MainActivity : AppCompatActivity() {
     private val imageViewModel: ImageModel by viewModels()
+    private lateinit var titleCardView1: TextView
+    private lateinit var titleCardView2: TextView
+    private lateinit var titleCardView3: TextView
+    private lateinit var titleCardView4: TextView
+    private lateinit var ratingBarCardView1: RatingBar
+    private lateinit var ratingBarCardView2: RatingBar
+    private lateinit var ratingBarCardView3: RatingBar
+    private lateinit var ratingBarCardView4: RatingBar
+    private lateinit var vTarneitShoppingCentre: CardView
+    private lateinit var vBunningsWarehouse: CardView
+    private lateinit var vTarneitMedicalCentre: CardView
+    private lateinit var vVillageCinemas: CardView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         //Re-Render TextColor View in case rotate the view as landscape
         reRenderView()
-        Log.i("titleonCreated", "you are here")
+//        Log.i("onCreate", "you are here")
         //Find CardView and assign Event onClick for cardViewTarneitShoppingCentre
-        val vTarneitShoppingCentre = findViewById<CardView>(R.id.cardViewTarneitShoppingCentre)
+        vTarneitShoppingCentre = findViewById(R.id.cardViewTarneitShoppingCentre)
         vTarneitShoppingCentre.setOnClickListener{
             val intent = Intent(this, DetailActivity::class.java).apply {
                 putExtra("location",imageViewModel.imageLocations[0])
@@ -32,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         }
 
 //        Find CardView and assign Event onClick for cardViewBunnings_warehouse
-        val vBunningsWarehouse = findViewById<CardView>(R.id.cardViewBunnings_warehouse)
+        vBunningsWarehouse = findViewById(R.id.cardViewBunnings_warehouse)
         vBunningsWarehouse.setOnClickListener{
             val intent = Intent(this, DetailActivity::class.java).apply {
                 putExtra("location",imageViewModel.imageLocations[1])
@@ -41,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         //Find CardView and assign Event onClick for cardView_Tarneit_medical_center
-        val vTarneitMedicalCentre = findViewById<CardView>(R.id.cardView_Tarneit_medical_center)
+        vTarneitMedicalCentre = findViewById(R.id.cardView_Tarneit_medical_center)
         vTarneitMedicalCentre.setOnClickListener{
             val intent = Intent(this, DetailActivity::class.java).apply {
                 putExtra("location",imageViewModel.imageLocations[2])
@@ -50,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         //Find CardView and assign Event onClick for cardView_village_cinemas
-        val vVillageCinemas = findViewById<CardView>(R.id.cardView_village_cinemas)
+        vVillageCinemas = findViewById(R.id.cardView_village_cinemas)
         vVillageCinemas.setOnClickListener{
             val intent = Intent(this, DetailActivity::class.java).apply {
                 putExtra("location",imageViewModel.imageLocations[3])
@@ -67,19 +80,19 @@ class MainActivity : AppCompatActivity() {
                     val data = result.data
                     val visited = data?.getParcelableExtra<Location>("visited")
                     visited?.let {
+//                        Log.i("visited-1", it.visited.toString())
                         for(item in imageViewModel.imageLocations){
-                            if(item.cardViewTitle == it.cardViewTitle){
+                            if(item.cardViewID == it.cardViewID){
                                 item.visited = it.visited
-//                                Log.i("Visited", it.visited.toString())
                                 item.title = it.title
                                 item.city = it.city
                                 item.date = it.date
-                                item.rating = it.rating.toDouble()
-                                Log.i("title-it", it.title)
-                                Log.i("title-item", item.title)
+                                item.rating = it.rating
+//                                Log.i("title-it", it.title)
                             }
                         }
                     }
+//                    Log.i("visited-2", visited.toString())
                     reRenderView()
                 }
             }
@@ -88,24 +101,25 @@ class MainActivity : AppCompatActivity() {
     //Render the View
     private fun reRenderView() {
         // CarView 1
-        val titleCardView1 = findViewById<TextView>(R.id.title_Card_View_1)
-        val ratingBarCardView1 = findViewById<RatingBar>(R.id.ratingBarCard_View_1)
+         titleCardView1 = findViewById(R.id.title_Card_View_1)
+         ratingBarCardView1 = findViewById(R.id.ratingBarCard_View_1)
         // CarView 2
-        val titleCardView2 = findViewById<TextView>(R.id.title_Card_View_2)
-        val ratingBarCardView2 = findViewById<RatingBar>(R.id.ratingBarCard_View_2)
+         titleCardView2 = findViewById(R.id.title_Card_View_2)
+         ratingBarCardView2 = findViewById(R.id.ratingBarCard_View_2)
         // CarView 3
-        val titleCardView3 = findViewById<TextView>(R.id.title_Card_View_3)
-        val ratingBarCardView3 = findViewById<RatingBar>(R.id.ratingBarCard_View_3)
+         titleCardView3 = findViewById(R.id.title_Card_View_3)
+         ratingBarCardView3 = findViewById(R.id.ratingBarCard_View_3)
         // CarView 4
-        val titleCardView4 = findViewById<TextView>(R.id.title_Card_View_4)
-        val ratingBarCardView4 = findViewById<RatingBar>(R.id.ratingBarCard_View_4)
+         titleCardView4 = findViewById(R.id.title_Card_View_4)
+         ratingBarCardView4 = findViewById(R.id.ratingBarCard_View_4)
 
         for(item in imageViewModel.imageLocations){
             if(item.visited){
-                when(item.cardViewTitle){
+                when(item.cardViewID){
                     //updated
                     "cardViewTarneitShoppingCentre" ->{
                         titleCardView1.text = item.title
+//                        Log.i("visited-describeContents", titleCardView1.contentDescription.toString())
                         ratingBarCardView1.rating = item.rating.toFloat()
                         imageViewModel.textColor(titleCardView1)
                     }
@@ -125,7 +139,6 @@ class MainActivity : AppCompatActivity() {
                         imageViewModel.textColor(titleCardView4)
                     }
                 }
-
             }
         }
     }
@@ -134,7 +147,7 @@ class MainActivity : AppCompatActivity() {
  * The view model itself: now contains the images
  */
 class ImageModel: ViewModel() {
-    private val simpleDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    private val simpleDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
     private val currentDate = simpleDate.format(Date())
 
     var imageLocations = listOf(

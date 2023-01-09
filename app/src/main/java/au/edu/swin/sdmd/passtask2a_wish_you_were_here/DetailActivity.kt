@@ -18,6 +18,10 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var vCity: TextInputEditText
     private lateinit var vRating: RatingBar
     private lateinit var vDate: TextInputEditText
+    private lateinit var image: ImageView
+    private var imageResult: Int = 0
+    private lateinit var dateButton: Button
+
 //    private lateinit var cardViewTitle: TextInputEditText
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -34,13 +38,13 @@ class DetailActivity : AppCompatActivity() {
             vCity = findViewById(R.id.TextEditCity)
             vCity.setText(it.city)
 
-            val image = findViewById<ImageView>(R.id.imageView)
+            image = findViewById<ImageView>(R.id.imageView)
 
 //            This will return current image according to clicked
-            val imageResult = when(it.title){
-                "Tarneit Shopping Centre" -> R.drawable.tarneit_shoppingcenter
-                "Tarneit Bunnings Warehouse" -> R.drawable.tarneit_bunnings_warehouse
-                "Tarneit Medical Centre" -> R.drawable.tarneit_medical_center
+             imageResult = when(it.cardViewID){
+                "cardViewTarneitShoppingCentre" -> R.drawable.tarneit_shoppingcenter
+                "cardViewBunnings_warehouse" -> R.drawable.tarneit_bunnings_warehouse
+                "cardView_Tarneit_medical_center" -> R.drawable.tarneit_medical_center
                 else -> R.drawable.tarneit_village_cinemas
             }
             image.setImageDrawable(getDrawable(imageResult))
@@ -51,7 +55,7 @@ class DetailActivity : AppCompatActivity() {
             vRating = findViewById(R.id.ratingBar)
             vRating.rating = it.rating.toFloat()
         }
-        val dateButton = findViewById<Button>(R.id.DatePicker)
+        dateButton = findViewById<Button>(R.id.DatePicker)
         dateButton.setOnClickListener{
             displayDatePicker()
         }
@@ -65,11 +69,12 @@ class DetailActivity : AppCompatActivity() {
         val datePickerDialog = DatePickerDialog(
             // on below line we are passing context.
             this,
-            { view, year, monthOfYear, dayOfMonth ->
-                // on below line we are setting
-                // date to our edit text.
-                val dat = (dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year)
-                vDate.setText(dat)
+            { _, year, monthOfYear, dayOfMonth ->
+                //  setting date to edit text.
+                val date_Of_Month = if(dayOfMonth<10) "0"+dayOfMonth.toString() else dayOfMonth.toString()
+                val month_Of_Year = if((monthOfYear+1)<10) "0"+(monthOfYear+1).toString() else (monthOfYear+1).toString()
+                val dat = (date_Of_Month+"/" + month_Of_Year + "/" + year)
+                vDate.setText(date_Of_Month +"-" + month_Of_Year + "-" + year)
             },
             //passing year, month, day for the selected date in our date picker.
             year,
@@ -88,7 +93,8 @@ class DetailActivity : AppCompatActivity() {
             location?.city = vCity?.text.toString()
             location?.date = vDate?.text.toString()
             location?.rating = vRating?.getRating()?.toDouble()!!
-            Log.i("rating", location?.rating.toString())
+            location?.visited = true
+//            Log.i("visited", location?.visited.toString())
             putExtra("visited", location)
         }
         setResult(Activity.RESULT_OK, i)
