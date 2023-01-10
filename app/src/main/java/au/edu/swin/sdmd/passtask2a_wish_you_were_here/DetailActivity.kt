@@ -6,10 +6,12 @@ import android.icu.util.Calendar
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.RatingBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.ParseException
+import androidx.core.widget.addTextChangedListener
 import com.google.android.material.textfield.TextInputEditText
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -17,7 +19,7 @@ import java.util.*
 
 class DetailActivity : AppCompatActivity() {
     private var location: Location? = null
-    private lateinit var vTitle: TextInputEditText
+    private lateinit var vTitle: EditText
     private lateinit var vCity: TextInputEditText
     private lateinit var vRating: RatingBar
     private lateinit var vDate: TextInputEditText
@@ -33,17 +35,22 @@ class DetailActivity : AppCompatActivity() {
         location = intent.getParcelableExtra("location")
         location?.let {
 //            Find TextView components and display values on them
-            vTitle = findViewById(R.id.TextEditTitle)
+            vTitle = findViewById(R.id.TextTitle)
             vTitle.setText(it.title)
-            vTitle.setOnClickListener(){
-                if(vTitle.length()>10){
+            vTitle.addTextChangedListener {
+                if(vTitle.length()>30){
                     vTitle.error = "Title should be less than 30 words"
                 }
             }
+//            vTitle.setOnClickListener(){
+//                if(vTitle.length()>30){
+//                    vTitle.error = "Title should be less than 30 words"
+//                }
+//            }
             vCity = findViewById(R.id.TextEditCity)
             vCity.setText(it.city)
             vCity.setOnClickListener{
-                if(vCity.length()>10){
+                if(vCity.length()>30){
                     vCity.error = "City should be less than 30 words"
                 }
             }
