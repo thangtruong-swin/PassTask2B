@@ -117,9 +117,8 @@
                 android:id="@+id/TextEditDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="18sp"
-                />
+                android:clickable="true"
+                android:textSize="18sp" />
         </com.google.android.material.textfield.TextInputLayout>
         <Button
             android:id="@+id/DatePicker"

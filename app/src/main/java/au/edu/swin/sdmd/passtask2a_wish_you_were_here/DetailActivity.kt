@@ -1,16 +1,19 @@
 package au.edu.swin.sdmd.passtask2a_wish_you_were_here
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.icu.util.Calendar
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.RatingBar
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.ParseException
 import com.google.android.material.textfield.TextInputEditText
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class DetailActivity : AppCompatActivity() {
     private var location: Location? = null
@@ -22,9 +25,6 @@ class DetailActivity : AppCompatActivity() {
     private var imageResult: Int = 0
     private lateinit var dateButton: Button
 
-//    private lateinit var cardViewTitle: TextInputEditText
-
-    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
@@ -35,10 +35,20 @@ class DetailActivity : AppCompatActivity() {
 //            Find TextView components and display values on them
             vTitle = findViewById(R.id.TextEditTitle)
             vTitle.setText(it.title)
+            vTitle.setOnClickListener(){
+                if(vTitle.length()>10){
+                    vTitle.error = "Title should be less than 30 words"
+                }
+            }
             vCity = findViewById(R.id.TextEditCity)
             vCity.setText(it.city)
+            vCity.setOnClickListener{
+                if(vCity.length()>10){
+                    vCity.error = "City should be less than 30 words"
+                }
+            }
 
-            image = findViewById<ImageView>(R.id.imageView)
+            image = findViewById(R.id.imageView)
 
 //            This will return current image according to clicked
              imageResult = when(it.cardViewID){
@@ -50,8 +60,17 @@ class DetailActivity : AppCompatActivity() {
             image.setImageDrawable(getDrawable(imageResult))
 //          Find TextView components and display values on them
             vDate = findViewById(R.id.TextEditDate)
-            vDate.setText(it.date)
-
+            val yourDate = it.date
+            vDate.setText(yourDate)
+            vDate.setOnClickListener{
+                Log.i("parsedDate", "you are here")
+                if(dateValidation()){
+                    vDate.error = "Date visited Invalid"
+                }
+                else{
+                    vDate.setError(null)
+                }
+            }
             vRating = findViewById(R.id.ratingBar)
             vRating.rating = it.rating.toFloat()
         }
@@ -60,6 +79,18 @@ class DetailActivity : AppCompatActivity() {
             displayDatePicker()
         }
     }
+
+    fun dateValidation():Boolean{
+        val regex = "^[A-Za-z-]*$"
+        for(i in 0 until vDate.length()){
+            if (vDate.text?.get(i)?.isLetter()==true) {
+                Log.i("parsedDate", vDate.text.toString())
+                return true
+            }
+        }
+        return false
+    }
+
     //    fun to process DatePicker
     private val displayDatePicker = {
         val c = Calendar.getInstance()
@@ -71,10 +102,17 @@ class DetailActivity : AppCompatActivity() {
             this,
             { _, year, monthOfYear, dayOfMonth ->
                 //  setting date to edit text.
-                val date_Of_Month = if(dayOfMonth<10) "0"+dayOfMonth.toString() else dayOfMonth.toString()
-                val month_Of_Year = if((monthOfYear+1)<10) "0"+(monthOfYear+1).toString() else (monthOfYear+1).toString()
-                val dat = (date_Of_Month+"/" + month_Of_Year + "/" + year)
-                vDate.setText(date_Of_Month +"-" + month_Of_Year + "-" + year)
+                val dateOfMonth = if(dayOfMonth<10) "0$dayOfMonth" else dayOfMonth.toString()
+                val monthOfYear = if((monthOfYear+1)<10) "0"+(monthOfYear+1).toString() else (monthOfYear+1).toString()
+//                val dat = (date_Of_Month+"/" + month_Of_Year + "/" + year)
+                vDate.setText(dateOfMonth +"-" + monthOfYear + "-" + year)
+                if(dateValidation()){
+                    vDate.error = "Date visited Invalid"
+                }
+                else{
+                    vDate.setError(null)
+                }
+
             },
             //passing year, month, day for the selected date in our date picker.
             year,
@@ -85,16 +123,27 @@ class DetailActivity : AppCompatActivity() {
         datePickerDialog.show()
     }
 
+
+//      Save latest input form
+private fun saveInPutFormDetailActivity(){
+        location?.title = vTitle?.text.toString()
+        location?.city = vCity?.text.toString()
+        location?.date = vDate?.text.toString()
+        location?.rating = vRating?.getRating()?.toDouble()!!
+        location?.visited = true
+//      Log.i("visited", location?.visited.toString())
+}
+
     //    When button back has pressed
     override fun onBackPressed() {
         location?.visited = true
         val i = intent.apply {
-            location?.title = vTitle?.text.toString()
-            location?.city = vCity?.text.toString()
-            location?.date = vDate?.text.toString()
-            location?.rating = vRating?.getRating()?.toDouble()!!
-            location?.visited = true
-//            Log.i("visited", location?.visited.toString())
+//            location?.title = vTitle?.text.toString()
+//            location?.city = vCity?.text.toString()
+//            location?.date = vDate?.text.toString()
+//            location?.rating = vRating?.getRating()?.toDouble()!!
+//            location?.visited = true
+            saveInPutFormDetailActivity()
             putExtra("visited", location)
         }
         setResult(Activity.RESULT_OK, i)
@@ -102,3 +151,4 @@ class DetailActivity : AppCompatActivity() {
         super.onBackPressed()
     }
 }
+
