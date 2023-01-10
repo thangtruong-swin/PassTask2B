@@ -71,6 +71,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     //    Event from onBackPressed
     private val startForResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -79,13 +80,12 @@ class MainActivity : AppCompatActivity() {
                     val data = result.data
                     val visited = data?.getParcelableExtra<Location>("visited")
                     visited?.let {
-//                        Log.i("visited-1", it.visited.toString())
                         for(item in imageViewModel.imageLocations){
                             if(item.cardViewID == it.cardViewID){
                                 item.visited = it.visited
                                 item.title = it.title
                                 item.city = it.city
-                                item.date = it.date
+                                item.date = reFormatDate(it.date)
                                 item.rating = it.rating
 //                                Log.i("title-it", it.title)
                             }
@@ -96,7 +96,17 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+//    reformat date from Detail Activity
+    fun reFormatDate(vDate: String):String {
+        var dateOfMonth = vDate.substringBefore("-")
+        val d2 = vDate.substringAfter("-")
+        var monthOfYear = d2.substringBefore("-")
+        val yearPicker = d2.substringAfter("-")
+        dateOfMonth = if(dateOfMonth.toInt()<10) "0$dateOfMonth" else dateOfMonth.toString()
+        monthOfYear = if((monthOfYear.toInt()+1)<10) "0"+(monthOfYear+1).toString() else (monthOfYear+1).toString()
 
+        return dateOfMonth + "-" + monthOfYear + "-" + yearPicker
+    }
     //Render the View
     private fun reRenderView() {
         // CarView 1

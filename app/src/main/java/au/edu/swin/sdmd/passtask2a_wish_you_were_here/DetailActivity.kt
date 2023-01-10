@@ -20,9 +20,9 @@ import java.util.*
 class DetailActivity : AppCompatActivity() {
     private var location: Location? = null
     private lateinit var vTitle: EditText
-    private lateinit var vCity: TextInputEditText
+    private lateinit var vCity: EditText
     private lateinit var vRating: RatingBar
-    private lateinit var vDate: TextInputEditText
+    private lateinit var vDate: EditText
     private lateinit var image: ImageView
     private var imageResult: Int = 0
     private lateinit var dateButton: Button
@@ -42,14 +42,9 @@ class DetailActivity : AppCompatActivity() {
                     vTitle.error = "Title should be less than 30 words"
                 }
             }
-//            vTitle.setOnClickListener(){
-//                if(vTitle.length()>30){
-//                    vTitle.error = "Title should be less than 30 words"
-//                }
-//            }
             vCity = findViewById(R.id.TextEditCity)
             vCity.setText(it.city)
-            vCity.setOnClickListener{
+            vCity.addTextChangedListener{
                 if(vCity.length()>30){
                     vCity.error = "City should be less than 30 words"
                 }
@@ -69,15 +64,13 @@ class DetailActivity : AppCompatActivity() {
             vDate = findViewById(R.id.TextEditDate)
             val yourDate = it.date
             vDate.setText(yourDate)
-            vDate.setOnClickListener{
-                Log.i("parsedDate", "you are here")
-                if(dateValidation()){
+            vDate.addTextChangedListener{
+//                Log.i("parsedDate", "you are here")
+                if(!dateValidation()){
                     vDate.error = "Date visited Invalid"
                 }
-                else{
-                    vDate.setError(null)
-                }
             }
+
             vRating = findViewById(R.id.ratingBar)
             vRating.rating = it.rating.toFloat()
         }
@@ -86,16 +79,67 @@ class DetailActivity : AppCompatActivity() {
             displayDatePicker()
         }
     }
+//    Handle LeapYear
+    fun isLeapYear(year: Int):Boolean{
+//        check isLeap year
+        return (((year % 4 == 0) &&
+                (year % 100 != 0)) ||
+                (year % 400 == 0));
+    }
+    fun isValidDate(dayValue: Int, monthValue: Int, yearValue: Int): Boolean{
+        val maxValidYear = 9999;
+        val minValidYear = 1800;
+        if (yearValue > maxValidYear ||   yearValue < minValidYear){
+            return false;
+        }
+        if (monthValue < 1 || monthValue > 12){
+            return false;
+        }
+        if (dayValue < 1 || dayValue > 31){
+            return false;
+        }
+        // Handle with leap year
+        if (monthValue == 2){
+            if(isLeapYear(yearValue)){
+                return (dayValue <= 29);
+            }
+            else{
+                return (dayValue <= 28);
+            }
+        }
+        // Months of April, June, Sept and Nov must have number of days less than or equal to 30.
+        if (monthValue == 4 || monthValue == 6 ||
+            monthValue == 9 || monthValue == 11)
+            return (dayValue <= 30);
+
+        return true;
+    }
 
     fun dateValidation():Boolean{
         val regex = "^[A-Za-z-]*$"
         for(i in 0 until vDate.length()){
+            vDate.text?.get(i)?.toString()?.let { Log.i("ByChar", it) }
             if (vDate.text?.get(i)?.isLetter()==true) {
-                Log.i("parsedDate", vDate.text.toString())
-                return true
+//                Log.i("parsedDate", vDate.text.toString())
+                return false
             }
         }
+
+        val dayPicker = vDate.text.toString().substringBefore("-")
+        val d2 = vDate.text.toString().substringAfter("-")
+        val monthPicker = d2.substringBefore("-")
+        val yearPicker = d2.substringAfter("-")
+
+//        Handle delete day, month, year by keyboard
+//        Otherwise system crash
+        if(dayPicker.length>0 && monthPicker.length>0 && yearPicker.length>0){
+            return isValidDate(dayPicker.toInt(),monthPicker.toInt(),yearPicker.toInt())
+        }
         return false
+    }
+    fun String.substringBefore(delimiter: Char, missingDelimiterValue: String = this): String {
+        val index = indexOf(delimiter)
+        return if (index == -1) missingDelimiterValue else substring(0, index)
     }
 
     //    fun to process DatePicker
@@ -113,23 +157,13 @@ class DetailActivity : AppCompatActivity() {
                 val monthOfYear = if((monthOfYear+1)<10) "0"+(monthOfYear+1).toString() else (monthOfYear+1).toString()
 //                val dat = (date_Of_Month+"/" + month_Of_Year + "/" + year)
                 vDate.setText(dateOfMonth +"-" + monthOfYear + "-" + year)
-                if(dateValidation()){
-                    vDate.error = "Date visited Invalid"
-                }
-                else{
-                    vDate.setError(null)
-                }
-
             },
             //passing year, month, day for the selected date in our date picker.
-            year,
-            month,
-            day
+            year,  month,  day
         )
         // to display our date picker dialog.
         datePickerDialog.show()
     }
-
 
 //      Save latest input form
 private fun saveInPutFormDetailActivity(){
