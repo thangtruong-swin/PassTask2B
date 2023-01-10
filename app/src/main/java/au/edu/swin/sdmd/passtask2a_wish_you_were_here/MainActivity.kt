@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.icu.text.SimpleDateFormat
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
@@ -12,6 +13,8 @@ import androidx.activity.viewModels
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.ViewModel
 import java.util.*
+import kotlin.math.log
+
 class MainActivity : AppCompatActivity() {
     private val imageViewModel: ImageModel by viewModels()
     private lateinit var titleCardView1: TextView
@@ -102,9 +105,10 @@ class MainActivity : AppCompatActivity() {
         val d2 = vDate.substringAfter("-")
         var monthOfYear = d2.substringBefore("-")
         val yearPicker = d2.substringAfter("-")
-        dateOfMonth = if(dateOfMonth.toInt()<10) "0$dateOfMonth" else dateOfMonth.toString()
-        monthOfYear = if((monthOfYear.toInt()+1)<10) "0"+(monthOfYear+1).toString() else (monthOfYear+1).toString()
-
+        dateOfMonth = if(dateOfMonth.toInt()<10 && dateOfMonth.length<2) "0$dateOfMonth" else dateOfMonth
+        monthOfYear = if((monthOfYear)< 10.toString() && monthOfYear.length<2) "0$monthOfYear" else (monthOfYear)
+//        Log.i("date3", dateOfMonth)
+//        Log.i("date4", monthOfYear)
         return dateOfMonth + "-" + monthOfYear + "-" + yearPicker
     }
     //Render the View

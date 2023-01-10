@@ -4,17 +4,12 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.icu.util.Calendar
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.RatingBar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.net.ParseException
 import androidx.core.widget.addTextChangedListener
-import com.google.android.material.textfield.TextInputEditText
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 class DetailActivity : AppCompatActivity() {
@@ -26,6 +21,8 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var image: ImageView
     private var imageResult: Int = 0
     private lateinit var dateButton: Button
+    private val Calendar1 = Calendar.getInstance()
+    var dpdialog: DatePickerDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,8 +59,7 @@ class DetailActivity : AppCompatActivity() {
             image.setImageDrawable(getDrawable(imageResult))
 //          Find TextView components and display values on them
             vDate = findViewById(R.id.TextEditDate)
-            val yourDate = it.date
-            vDate.setText(yourDate)
+            vDate.setText(it.date)
             vDate.addTextChangedListener{
 //                Log.i("parsedDate", "you are here")
                 if(!dateValidation()){
@@ -100,11 +96,10 @@ class DetailActivity : AppCompatActivity() {
         }
         // Handle with leap year
         if (monthValue == 2){
-            if(isLeapYear(yearValue)){
-                return (dayValue <= 29);
-            }
-            else{
-                return (dayValue <= 28);
+            return if(isLeapYear(yearValue)){
+                (dayValue <= 29);
+            } else{
+                (dayValue <= 28);
             }
         }
         // Months of April, June, Sept and Nov must have number of days less than or equal to 30.
@@ -118,7 +113,6 @@ class DetailActivity : AppCompatActivity() {
     fun dateValidation():Boolean{
         val regex = "^[A-Za-z-]*$"
         for(i in 0 until vDate.length()){
-            vDate.text?.get(i)?.toString()?.let { Log.i("ByChar", it) }
             if (vDate.text?.get(i)?.isLetter()==true) {
 //                Log.i("parsedDate", vDate.text.toString())
                 return false
@@ -137,17 +131,18 @@ class DetailActivity : AppCompatActivity() {
         }
         return false
     }
-    fun String.substringBefore(delimiter: Char, missingDelimiterValue: String = this): String {
-        val index = indexOf(delimiter)
-        return if (index == -1) missingDelimiterValue else substring(0, index)
-    }
+//    fun String.substringBefore(delimiter: Char, missingDelimiterValue: String = this): String {
+//        val index = indexOf(delimiter)
+//        return if (index == -1) missingDelimiterValue else substring(0, index)
+//    }
 
     //    fun to process DatePicker
     private val displayDatePicker = {
-        val c = Calendar.getInstance()
-        val year = c.get(Calendar.YEAR)
-        val month = c.get(Calendar.MONTH)
-        val day = c.get(Calendar.DAY_OF_MONTH)
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val dayOfMonth  = calendar.get(Calendar.DAY_OF_MONTH)
+
         val datePickerDialog = DatePickerDialog(
             // on below line we are passing context.
             this,
@@ -156,10 +151,12 @@ class DetailActivity : AppCompatActivity() {
                 val dateOfMonth = if(dayOfMonth<10) "0$dayOfMonth" else dayOfMonth.toString()
                 val monthOfYear = if((monthOfYear+1)<10) "0"+(monthOfYear+1).toString() else (monthOfYear+1).toString()
 //                val dat = (date_Of_Month+"/" + month_Of_Year + "/" + year)
-                vDate.setText(dateOfMonth +"-" + monthOfYear + "-" + year)
+                vDate.setText(dateOfMonth + "-" + monthOfYear + "-" + year)
             },
             //passing year, month, day for the selected date in our date picker.
-            year,  month,  day
+            year,
+            month,
+            dayOfMonth
         )
         // to display our date picker dialog.
         datePickerDialog.show()
@@ -179,11 +176,6 @@ private fun saveInPutFormDetailActivity(){
     override fun onBackPressed() {
         location?.visited = true
         val i = intent.apply {
-//            location?.title = vTitle?.text.toString()
-//            location?.city = vCity?.text.toString()
-//            location?.date = vDate?.text.toString()
-//            location?.rating = vRating?.getRating()?.toDouble()!!
-//            location?.visited = true
             saveInPutFormDetailActivity()
             putExtra("visited", location)
         }
