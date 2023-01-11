@@ -15,22 +15,22 @@
         >
         <TextView
             android:id="@+id/textViewTitleLable"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:text="@string/textViewTitleLable"
-            android:textAlignment="center"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textColor="@color/black"
             android:layout_marginEnd="10dp"
             />
-        <TextView
-            android:id="@+id/textViewTitle"
+        <EditText android:id="@+id/TextTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/textViewTitle"
-            android:textSize="16sp"
-            android:textColor="@color/black"
-            />
+            android:inputType="textMultiLine"
+            android:lines="2"
+            android:minLines="1"
+            android:scrollbars="vertical">
+        <requestFocus />
+        </EditText>
     </LinearLayout>
 
     <LinearLayout
@@ -40,27 +40,28 @@
         >
         <TextView
             android:id="@+id/textViewCityLable"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:text="@string/textViewCityLable"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textColor="@color/black"
             android:layout_marginBottom="10dp"
             android:layout_marginEnd="10dp"
             />
-        <TextView
-            android:id="@+id/textViewCity"
+        <EditText android:id="@+id/TextEditCity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/textViewCity"
-            android:textSize="16sp"
-            android:textColor="@color/black"
-            />
+            android:inputType="textMultiLine"
+            android:lines="2"
+            android:minLines="1"
+            android:singleLine="true"
+            android:scrollbars="vertical">
+        </EditText>
     </LinearLayout>
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
         android:scaleType="fitXY"
         android:contentDescription="@string/tarneit_shopping_centre"
         app:srcCompat="@drawable/tarneit_shoppingcenter"
@@ -73,21 +74,30 @@
         >
         <TextView
             android:id="@+id/textViewDateLabel"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:text="@string/textViewDateLabel"
-            android:textSize="16sp"
-            android:layout_marginEnd="10dp"
+            android:textSize="18sp"
+            android:layout_marginEnd="15dp"
             android:textColor="@color/black"
             />
-        <TextView
-            android:id="@+id/textViewDate"
-            android:layout_width="match_parent"
+        <EditText android:id="@+id/TextEditDate"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/textViewDate"
-            android:textSize="16sp"
-            android:textColor="@color/black"
-            />
+            android:inputType="textMultiLine"
+            android:lines="2"
+            android:minLines="1"
+            android:singleLine="true"
+            android:scrollbars="vertical">
+        </EditText>
+        <Button
+            android:id="@+id/DatePicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/update"
+            android:layout_marginStart="10dp"
+            >
+        </Button>
 
     </LinearLayout>
 
@@ -98,23 +108,21 @@
         >
         <TextView
             android:id="@+id/textViewRating"
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:text="@string/textViewRating"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textColor="@color/black"
-            android:layout_marginEnd="10dp"
+            android:layout_marginTop="15dp"
             />
         <RatingBar
             android:id="@+id/ratingBar"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:numStars="5"
             android:stepSize="0.5"
-            android:rating="3"
             android:layout_weight="1"
-            style = "?android:attr/ratingBarStyleSmall"
             />
     </LinearLayout>
 
