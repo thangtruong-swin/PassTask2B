@@ -4,7 +4,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.icu.text.SimpleDateFormat
 import android.os.Bundle
-import android.view.Gravity
 import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
@@ -87,7 +86,7 @@ class MainActivity : AppCompatActivity() {
                             if(item.cardViewID == it.cardViewID){
 //                                display toast once fields updated
                                 if(item.title != it.title){
-                                    Toast.makeText(getApplicationContext(),"Title has updated for " + it.cardViewID, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(),"Title has updated for " + it.cardViewID, Toast.LENGTH_SHORT).show()
                                 }
                                 if(item.city != it.city){
                                     Toast.makeText(getApplicationContext(),"City has updated for " + it.cardViewID, Toast.LENGTH_SHORT).show();

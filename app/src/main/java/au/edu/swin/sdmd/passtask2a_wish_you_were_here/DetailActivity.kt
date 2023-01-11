@@ -62,6 +62,9 @@ class DetailActivity : AppCompatActivity() {
                 if(!dateValidation()){
                     vDate.error = "Date visited Invalid"
                 }
+                else{
+                    vDate.setError(null)
+                }
             }
             vRating = findViewById(R.id.ratingBar)
             vRating.rating = it.rating.toFloat()
