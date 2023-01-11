@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.icu.util.Calendar
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -21,8 +22,6 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var image: ImageView
     private var imageResult: Int = 0
     private lateinit var dateButton: Button
-    private val Calendar1 = Calendar.getInstance()
-    var dpdialog: DatePickerDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,9 +45,7 @@ class DetailActivity : AppCompatActivity() {
                     vCity.error = "City should be less than 30 words"
                 }
             }
-
             image = findViewById(R.id.imageView)
-
 //            This will return current image according to clicked
              imageResult = when(it.cardViewID){
                 "cardViewTarneitShoppingCentre" -> R.drawable.tarneit_shoppingcenter
@@ -59,14 +56,13 @@ class DetailActivity : AppCompatActivity() {
             image.setImageDrawable(getDrawable(imageResult))
 //          Find TextView components and display values on them
             vDate = findViewById(R.id.TextEditDate)
-            vDate.setText(it.date)
+            vDate.setText(reFormatDate(it.date))
             vDate.addTextChangedListener{
 //                Log.i("parsedDate", "you are here")
                 if(!dateValidation()){
                     vDate.error = "Date visited Invalid"
                 }
             }
-
             vRating = findViewById(R.id.ratingBar)
             vRating.rating = it.rating.toFloat()
         }
@@ -109,7 +105,7 @@ class DetailActivity : AppCompatActivity() {
 
         return true;
     }
-
+//    Checking any letters in vDate
     fun dateValidation():Boolean{
         val regex = "^[A-Za-z-]*$"
         for(i in 0 until vDate.length()){
@@ -118,12 +114,10 @@ class DetailActivity : AppCompatActivity() {
                 return false
             }
         }
-
         val dayPicker = vDate.text.toString().substringBefore("-")
         val d2 = vDate.text.toString().substringAfter("-")
         val monthPicker = d2.substringBefore("-")
         val yearPicker = d2.substringAfter("-")
-
 //        Handle delete day, month, year by keyboard
 //        Otherwise system crash
         if(dayPicker.length>0 && monthPicker.length>0 && yearPicker.length>0){
@@ -131,10 +125,6 @@ class DetailActivity : AppCompatActivity() {
         }
         return false
     }
-//    fun String.substringBefore(delimiter: Char, missingDelimiterValue: String = this): String {
-//        val index = indexOf(delimiter)
-//        return if (index == -1) missingDelimiterValue else substring(0, index)
-//    }
 
     //    fun to process DatePicker
     private val displayDatePicker = {
@@ -149,6 +139,7 @@ class DetailActivity : AppCompatActivity() {
             { _, year, monthOfYear, dayOfMonth ->
                 //  setting date to edit text.
                 val dateOfMonth = if(dayOfMonth<10) "0$dayOfMonth" else dayOfMonth.toString()
+//                val monthOfYear = if((monthOfYear+1)<10) "0"+(monthOfYear+1).toString() else (monthOfYear+1).toString()
                 val monthOfYear = if((monthOfYear+1)<10) "0"+(monthOfYear+1).toString() else (monthOfYear+1).toString()
 //                val dat = (date_Of_Month+"/" + month_Of_Year + "/" + year)
                 vDate.setText(dateOfMonth + "-" + monthOfYear + "-" + year)
@@ -161,7 +152,16 @@ class DetailActivity : AppCompatActivity() {
         // to display our date picker dialog.
         datePickerDialog.show()
     }
-
+    //    reformat date from Detail Activity
+    fun reFormatDate(vDate: String):String {
+        var dateOfMonth = vDate.substringBefore("-")
+        val d2 = vDate.substringAfter("-")
+        var monthOfYear = d2.substringBefore("-")
+        val yearPicker = d2.substringAfter("-")
+        dateOfMonth = if(dateOfMonth.toInt()<10 && dateOfMonth.length<2) "0$dateOfMonth" else dateOfMonth
+        monthOfYear = if((monthOfYear.toInt())< 10 && monthOfYear.length<2) "0$monthOfYear" else (monthOfYear)
+        return dateOfMonth + "-" + monthOfYear + "-" + yearPicker
+    }
 //      Save latest input form
 private fun saveInPutFormDetailActivity(){
         location?.title = vTitle?.text.toString()

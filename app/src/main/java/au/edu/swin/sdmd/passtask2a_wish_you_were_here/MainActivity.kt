@@ -74,7 +74,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     //    Event from onBackPressed
     private val startForResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -88,7 +87,7 @@ class MainActivity : AppCompatActivity() {
                                 item.visited = it.visited
                                 item.title = it.title
                                 item.city = it.city
-                                item.date = reFormatDate(it.date)
+                                item.date = it.date
                                 item.rating = it.rating
 //                                Log.i("title-it", it.title)
                             }
@@ -99,18 +98,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-//    reformat date from Detail Activity
-    fun reFormatDate(vDate: String):String {
-        var dateOfMonth = vDate.substringBefore("-")
-        val d2 = vDate.substringAfter("-")
-        var monthOfYear = d2.substringBefore("-")
-        val yearPicker = d2.substringAfter("-")
-        dateOfMonth = if(dateOfMonth.toInt()<10 && dateOfMonth.length<2) "0$dateOfMonth" else dateOfMonth
-        monthOfYear = if((monthOfYear)< 10.toString() && monthOfYear.length<2) "0$monthOfYear" else (monthOfYear)
-//        Log.i("date3", dateOfMonth)
-//        Log.i("date4", monthOfYear)
-        return dateOfMonth + "-" + monthOfYear + "-" + yearPicker
-    }
+
     //Render the View
     private fun reRenderView() {
         // CarView 1
