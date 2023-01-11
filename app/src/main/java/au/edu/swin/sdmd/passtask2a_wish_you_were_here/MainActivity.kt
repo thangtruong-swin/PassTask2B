@@ -3,17 +3,17 @@ package au.edu.swin.sdmd.passtask2a_wish_you_were_here
 import android.content.Intent
 import android.graphics.Color
 import android.icu.text.SimpleDateFormat
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.view.Gravity
 import android.widget.RatingBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.ViewModel
 import java.util.*
-import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
     private val imageViewModel: ImageModel by viewModels()
@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var vBunningsWarehouse: CardView
     private lateinit var vTarneitMedicalCentre: CardView
     private lateinit var vVillageCinemas: CardView
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,6 +85,19 @@ class MainActivity : AppCompatActivity() {
                     visited?.let {
                         for(item in imageViewModel.imageLocations){
                             if(item.cardViewID == it.cardViewID){
+//                                display toast once fields updated
+                                if(item.title != it.title){
+                                    Toast.makeText(getApplicationContext(),"Title has updated for " + it.cardViewID, Toast.LENGTH_SHORT).show();
+                                }
+                                if(item.city != it.city){
+                                    Toast.makeText(getApplicationContext(),"City has updated for " + it.cardViewID, Toast.LENGTH_SHORT).show();
+                                }
+                                if(item.date != it.date){
+                                    Toast.makeText(getApplicationContext(),"Date has updated for " + it.cardViewID, Toast.LENGTH_SHORT).show();
+                                }
+                                if(item.rating != it.rating){
+                                    Toast.makeText(getApplicationContext(),"Rating has updated for " + it.cardViewID , Toast.LENGTH_SHORT).show();
+                                }
                                 item.visited = it.visited
                                 item.title = it.title
                                 item.city = it.city
