@@ -11,7 +11,6 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
-import java.util.*
 
 class DetailActivity : AppCompatActivity() {
     private var location: Location? = null
@@ -26,7 +25,6 @@ class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
-
 //        get data from MainActivity via Parcelable
         location = intent.getParcelableExtra("location")
         location?.let {
@@ -73,44 +71,45 @@ class DetailActivity : AppCompatActivity() {
         dateButton.setOnClickListener{
             displayDatePicker()
         }
+
     }
 //    Handle LeapYear
-    fun isLeapYear(year: Int):Boolean{
+private fun isLeapYear(year: Int):Boolean{
 //        check isLeap year
         return (((year % 4 == 0) &&
                 (year % 100 != 0)) ||
-                (year % 400 == 0));
-    }
-    fun isValidDate(dayValue: Int, monthValue: Int, yearValue: Int): Boolean{
-        val maxValidYear = 9999;
-        val minValidYear = 1800;
+                (year % 400 == 0))
+}
+    private fun isValidDate(dayValue: Int, monthValue: Int, yearValue: Int): Boolean{
+        val maxValidYear = 9999
+        val minValidYear = 1800
         if (yearValue > maxValidYear ||   yearValue < minValidYear){
-            return false;
+            return false
         }
         if (monthValue < 1 || monthValue > 12){
-            return false;
+            return false
         }
         if (dayValue < 1 || dayValue > 31){
-            return false;
+            return false
         }
         // Handle with leap year
         if (monthValue == 2){
             return if(isLeapYear(yearValue)){
-                (dayValue <= 29);
+                (dayValue <= 29)
             } else{
-                (dayValue <= 28);
+                (dayValue <= 28)
             }
         }
         // Months of April, June, Sept and Nov must have number of days less than or equal to 30.
         if (monthValue == 4 || monthValue == 6 ||
             monthValue == 9 || monthValue == 11)
-            return (dayValue <= 30);
+            return (dayValue <= 30)
 
-        return true;
+        return true
     }
 //    Checking any letters in vDate
-    fun dateValidation():Boolean{
-        val regex = "^[A-Za-z-]*$"
+private fun dateValidation():Boolean{
+//        val regex = "^[A-Za-z-]*$"
         for(i in 0 until vDate.length()){
             if (vDate.text?.get(i)?.isLetter()==true) {
 //                Log.i("parsedDate", vDate.text.toString())
@@ -123,7 +122,7 @@ class DetailActivity : AppCompatActivity() {
         val yearPicker = d2.substringAfter("-")
 //        Handle delete day, month, year by keyboard
 //        Otherwise system crash
-        if(dayPicker.length>0 && monthPicker.length>0 && yearPicker.length>0){
+        if(dayPicker.isNotEmpty() && monthPicker.isNotEmpty() && yearPicker.isNotEmpty()){
             return isValidDate(dayPicker.toInt(),monthPicker.toInt(),yearPicker.toInt())
         }
         return false
@@ -167,10 +166,10 @@ class DetailActivity : AppCompatActivity() {
     }
 //      Save latest input form
 private fun saveInPutFormDetailActivity(){
-        location?.title = vTitle?.text.toString()
-        location?.city = vCity?.text.toString()
-        location?.date = vDate?.text.toString()
-        location?.rating = vRating?.getRating()?.toDouble()!!
+        location?.title = vTitle.text.toString()
+        location?.city = vCity.text.toString()
+        location?.date = vDate.text.toString()
+        location?.rating = vRating.getRating().toDouble()
         location?.visited = true
 //      Log.i("visited", location?.visited.toString())
 }

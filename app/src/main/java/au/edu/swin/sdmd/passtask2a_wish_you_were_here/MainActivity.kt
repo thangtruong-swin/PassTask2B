@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
 //        Log.i("onCreate", "you are here")
         //Find CardView and assign Event onClick for cardViewTarneitShoppingCentre
         vTarneitShoppingCentre = findViewById(R.id.cardViewTarneitShoppingCentre)
+        ratingBarCardView1.rating = imageViewModel.imageLocations[0].rating.toFloat()
         vTarneitShoppingCentre.setOnClickListener{
             val intent = Intent(this, DetailActivity::class.java).apply {
                 putExtra("location",imageViewModel.imageLocations[0])
@@ -48,6 +49,8 @@ class MainActivity : AppCompatActivity() {
 
 //        Find CardView and assign Event onClick for cardViewBunnings_warehouse
         vBunningsWarehouse = findViewById(R.id.cardViewBunnings_warehouse)
+        ratingBarCardView2.rating = imageViewModel.imageLocations[1].rating.toFloat()
+
         vBunningsWarehouse.setOnClickListener{
             val intent = Intent(this, DetailActivity::class.java).apply {
                 putExtra("location",imageViewModel.imageLocations[1])
@@ -57,6 +60,8 @@ class MainActivity : AppCompatActivity() {
 
         //Find CardView and assign Event onClick for cardView_Tarneit_medical_center
         vTarneitMedicalCentre = findViewById(R.id.cardView_Tarneit_medical_center)
+        ratingBarCardView3.rating = imageViewModel.imageLocations[2].rating.toFloat()
+
         vTarneitMedicalCentre.setOnClickListener{
             val intent = Intent(this, DetailActivity::class.java).apply {
                 putExtra("location",imageViewModel.imageLocations[2])
@@ -66,6 +71,8 @@ class MainActivity : AppCompatActivity() {
 
         //Find CardView and assign Event onClick for cardView_village_cinemas
         vVillageCinemas = findViewById(R.id.cardView_village_cinemas)
+        ratingBarCardView4.rating = imageViewModel.imageLocations[3].rating.toFloat()
+
         vVillageCinemas.setOnClickListener{
             val intent = Intent(this, DetailActivity::class.java).apply {
                 putExtra("location",imageViewModel.imageLocations[3])
@@ -89,13 +96,13 @@ class MainActivity : AppCompatActivity() {
                                     Toast.makeText(getApplicationContext(),"Title has updated for " + it.cardViewID, Toast.LENGTH_SHORT).show()
                                 }
                                 if(item.city != it.city){
-                                    Toast.makeText(getApplicationContext(),"City has updated for " + it.cardViewID, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(),"City has updated for " + it.cardViewID, Toast.LENGTH_SHORT).show()
                                 }
                                 if(item.date != it.date){
-                                    Toast.makeText(getApplicationContext(),"Date has updated for " + it.cardViewID, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(),"Date has updated for " + it.cardViewID, Toast.LENGTH_SHORT).show()
                                 }
                                 if(item.rating != it.rating){
-                                    Toast.makeText(getApplicationContext(),"Rating has updated for " + it.cardViewID , Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(),"Rating has updated for " + it.cardViewID , Toast.LENGTH_SHORT).show()
                                 }
                                 item.visited = it.visited
                                 item.title = it.title
